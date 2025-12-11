@@ -197,7 +197,7 @@ const MainPanel = () => {
         <p className="text-gray-600">Monitor your system statistics and recent activities</p>
       </div>
       <UserStats onLoadingChange={setGlobalLoading} />
-      <RecentActivities globalLoading={globalLoading} />
+      <RecentActivities  />
     </div>
   );
 };
