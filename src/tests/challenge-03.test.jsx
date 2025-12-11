@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { PendingApprovals, AdminDashboard } from '../challenges/debug-challenge-03-double-submit';
+import { PendingApprovals, AdminDashboardB } from '../challenges/debug-challenge-03-double-submit';
 
 describe('Desafio 3: Bugs de Duplo Clique / Submissão em Botões', () => {
   
@@ -271,7 +271,7 @@ describe('Desafio 3: Bugs de Duplo Clique / Submissão em Botões', () => {
   // TESTE 13: AdminDashboard Deve Renderizar o Componente PendingApprovals
   // ============================================================================
   it('deve renderizar aprovações pendentes dentro do painel de administração', () => {
-    render(<AdminDashboard />);
+    render(<AdminDashboardB />);
     
     expect(screen.getByTestId('admin-dashboard')).toBeInTheDocument();
     expect(screen.getByTestId('sidebar')).toBeInTheDocument();
