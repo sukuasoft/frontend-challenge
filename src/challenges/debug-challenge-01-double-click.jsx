@@ -3,14 +3,21 @@ import React, { useState } from 'react';
 export const BrokenSubmitButton = ({ onSubmit }) => {
   const [message, setMessage] = useState('');
 
+  const [submitting, setSubmitting] = useState();
+
+
   const handleClick = async () => {
     setMessage('Submitting...');
     
     try {
+      setSubmitting(true);
       await onSubmit();
       setMessage('Success!');
     } catch (error) {
       setMessage('Error!');
+    } finally {
+      setSubmitting(false);
+
     }
   };
 
@@ -61,6 +68,7 @@ export const BrokenSubmitButton = ({ onSubmit }) => {
           </div>
 
           <button
+          disabled={submitting}
             onClick={handleClick}
             data-testid="submit-button"
             className={`w-full px-6 py-3 rounded-lg font-medium text-white transition-all duration-200 bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
