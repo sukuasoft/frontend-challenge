@@ -13,7 +13,7 @@ const approveAllItems = async (itemIds) => {
 };
 
 
-const ApprovalItem = ({ item, onApprove }) => {
+const ApprovalItem = ({ item, onApprove, isApprovingAll }) => {
   const [isApproving, setIsApproving] = useState(false);
   const [status, setStatus] = useState('pending');
 
@@ -36,7 +36,7 @@ const ApprovalItem = ({ item, onApprove }) => {
     const badges = {
       pending: { bg: 'bg-yellow-100', text: 'text-yellow-800', label: 'Pending' },
       approving: { bg: 'bg-blue-100', text: 'text-blue-800', label: 'Approving...' },
-      approved: { bg: 'bg-green-100', text: 'text-green-800', label: 'Approved' },
+      approved: { bg: 'bg-green-100', text: 'text-green-800', label: 'approved' },
       error: { bg: 'bg-red-100', text: 'text-red-800', label: 'Error' }
     };
     
@@ -79,7 +79,7 @@ const ApprovalItem = ({ item, onApprove }) => {
           <button
             onClick={handleApprove}
             data-testid={`approve-btn-${item.id}`}
-            disabled={isApproving || status === 'approved'}
+            disabled={isApproving || status === 'approved' || isApprovingAll}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
               isApproving || status === 'approved'
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
@@ -172,10 +172,10 @@ export const PendingApprovals = () => {
           <div>
             <h3 className="text-xl font-bold text-gray-900">Pending Approvals</h3>
             <p className="text-sm text-gray-600 mt-1">
-              {pendingCount > 0 ? (
+              {pendingCount >= 0 ? (
                 <span className="inline-flex items-center gap-1">
                   <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
-                  {pendingCount} item{pendingCount !== 1 ? 's' : ''} awaiting approval
+                  {" "}({pendingCount}) item{pendingCount !== 1 ? 's' : ''} awaiting approval
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1 text-green-600">
@@ -229,7 +229,7 @@ export const PendingApprovals = () => {
               <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="text-green-800 font-medium">All items approved successfully!</span>
+              <span className="text-green-800 font-medium">All items approved!</span>
             </div>
           )}
           {approveAllStatus === 'error' && (
@@ -254,6 +254,7 @@ export const PendingApprovals = () => {
           <ApprovalItem
             key={item.id}
             item={item}
+            isApprovingAll={isApprovingAll}
             onApprove={handleApproveItem}
           />
         ))}

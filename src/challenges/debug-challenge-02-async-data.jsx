@@ -162,8 +162,7 @@ const RecentActivities = () => {
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900">{activity.user}</p>
-              <p className="text-sm text-gray-600">{activity.action}</p>
+              <p className="text-sm font-medium text-gray-900">{activity.user}{activity.action}</p>
             </div>
             <span className="text-xs text-gray-500 whitespace-nowrap">{activity.time}</span>
           </li>
